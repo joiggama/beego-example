@@ -1,0 +1,19 @@
+{
+	"ImportPath": "github.com/joiggama/beego-example",
+	"GoVersion": "go1.2.2",
+	"Deps": [
+		{
+			"ImportPath": "github.com/astaxie/beego",
+			"Comment": "v1.2.0-37-g03080b3",
+			"Rev": "03080b3ef280c2e8ada5436d670dcc0772dd2a5b"
+		},
+		{
+			"ImportPath": "github.com/codegangsta/envy/lib",
+			"Rev": "25e5d50415d96a367adac8bd567608d78a50bef0"
+		},
+		{
+			"ImportPath": "github.com/lib/pq",
+			"Rev": "529edd91735bdd4b3cc61dcb9ed82cd8ddb616c4"
+		}
+	]
+}
