@@ -1,15 +1,15 @@
 package models
 
 import (
-	"time"
+	//"time"
 )
 
 type Product struct {
 	Id        int
 	Code      string
 	Name      string
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	//CreatedAt time.Time
+	//UpdatedAt time.Time
 }
 
 func (p Product) TableName() string {

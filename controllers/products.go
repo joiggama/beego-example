@@ -1,6 +1,7 @@
 package controllers
 
 import(
+  "encoding/json"
   "github.com/astaxie/beego"
   "github.com/astaxie/beego/orm"
 
@@ -22,5 +23,21 @@ func (c *ProductsController) Get() {
 
   qs.Limit(limit, offset).All(&products)
   c.Data["json"] = &products
+  c.ServeJson()
+}
+
+func (c *ProductsController) Post() {
+  db := orm.NewOrm()
+
+  var product models.Product
+  json.Unmarshal(c.Ctx.Input.RequestBody, &product)
+
+  _, err := db.Insert(&product)
+
+  if err == nil {
+    c.Data["json"] = &product
+  } else {
+    c.Data["json"] = map[string]string{ "error" : err.Error() }
+  }
   c.ServeJson()
 }
