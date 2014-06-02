@@ -1,17 +1,17 @@
 package models
 
 import (
-	//"time"
+//"time"
 )
 
 type Product struct {
-	Id        int
-	Code      string
-	Name      string
+	Id   int    `json:"id"`
+	Code string `json:"code"`
+	Name string `json:"name"`
 	//CreatedAt time.Time
 	//UpdatedAt time.Time
 }
 
 func (p Product) TableName() string {
-  return "products"
+	return "products"
 }
