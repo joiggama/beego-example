@@ -103,3 +103,21 @@ func (c *ProductsController) Destroy() {
     c.ServeJson()
   }
 }
+
+func (c *ProductsController) BulkCreate() {
+  db := orm.NewOrm()
+
+  var products []models.Product
+
+  json.Unmarshal(c.Ctx.Input.RequestBody, &products)
+
+  _, err := db.InsertMulti(2, &products)
+
+  if err == nil {
+    c.Data["json"] = &products
+  } else {
+    c.Data["json"] = map[string]string{ "error" : err.Error() }
+  }
+
+  c.ServeJson()
+}
