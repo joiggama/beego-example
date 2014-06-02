@@ -85,4 +85,21 @@ func (c *ProductsController) Update()  {
   c.ServeJson()
 }
 
-func (c *ProductsController) Destroy() {}
+func (c *ProductsController) Destroy() {
+	db := orm.NewOrm()
+
+	id, err := strconv.Atoi(c.Ctx.Input.Param(":id"))
+
+  if err != nil {
+    panic(err)
+  }
+
+  _, err = db.Delete(&models.Product{Id: id})
+
+  if err == nil {
+    c.Redirect("/products", 204)
+  } else {
+    c.Data["json"] = map[string]string{ "error" : err.Error() }
+    c.ServeJson()
+  }
+}
