@@ -14,7 +14,6 @@ type ProductsController struct {
 	beego.Controller
 }
 
-// Index
 func (c *ProductsController) Index() {
 	db := orm.NewOrm()
 
@@ -29,7 +28,6 @@ func (c *ProductsController) Index() {
 	c.ServeJson()
 }
 
-// Show
 func (c *ProductsController) Show() {
 	db := orm.NewOrm()
 	id, err := strconv.Atoi(c.Ctx.Input.Param(":id"))
@@ -50,7 +48,6 @@ func (c *ProductsController) Show() {
 	c.ServeJson()
 }
 
-// Create
 func (c *ProductsController) Create() {
 	db := orm.NewOrm()
 
@@ -67,5 +64,25 @@ func (c *ProductsController) Create() {
 	c.ServeJson()
 }
 
-func (c *ProductsController) Update()  {}
+func (c *ProductsController) Update()  {
+	db := orm.NewOrm()
+
+	id, err := strconv.Atoi(c.Ctx.Input.Param(":id"))
+
+  if err != nil {
+    panic(err)
+  }
+
+  product := models.Product{Id: id}
+	json.Unmarshal(c.Ctx.Input.RequestBody, &product)
+	_, err = db.Update(&product)
+
+  if err == nil {
+    c.Data["json"] = &product
+  } else {
+    c.Data["json"] = map[string]string{ "error" : err.Error() }
+  }
+  c.ServeJson()
+}
+
 func (c *ProductsController) Destroy() {}
